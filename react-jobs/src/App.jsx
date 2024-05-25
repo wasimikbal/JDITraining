@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import HomeCards from './components/HomeCards'
-import JobListing from './components/JobListing'
+import JobListings from './components/JobListings'
 
 const App = () => {
   return (
@@ -10,7 +10,7 @@ const App = () => {
       <Navbar />
       <Hero/>
       <HomeCards/>
-      <JobListing/>
+      <JobListings/>
       
       
 
