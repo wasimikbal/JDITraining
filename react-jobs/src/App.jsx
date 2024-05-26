@@ -17,7 +17,6 @@ import EditJobPage from './pages/EditJobPage'
 const addJob = async(newJob) => {
   const res = await fetch('http://localhost:8000/jobs',
     {
-      mode: 'no-cors',
       method: 'POST',
       headers: {
         'Content_Type': 'application/json'

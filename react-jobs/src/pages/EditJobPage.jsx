@@ -6,6 +6,7 @@ import { useParams, useLoaderData, Link, useNavigate } from 'react-router-dom'
 const EditJobPage = ({ UpdateJobSubmit }) => {
 
     const job = useLoaderData();
+    const {id} = useParams();
 
 
     const [title, setTitle] = useState(job.title);
@@ -22,6 +23,7 @@ const EditJobPage = ({ UpdateJobSubmit }) => {
     const submitForm = (e) => {
         e.preventDefault();
         const updatedJob = {
+            id,
             title,
             type,
             location,
@@ -36,7 +38,7 @@ const EditJobPage = ({ UpdateJobSubmit }) => {
         }
         UpdateJobSubmit(updatedJob);
         toast.success('Job updated successfully')
-        return navigate(`/jobs/${job.id}`)
+        return navigate(`/jobs/${id}`)
     }
 
     return (
