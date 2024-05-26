@@ -83,20 +83,6 @@
         "contactEmail": "contact@ipsumlorem.com",
         "contactPhone": "555-555-5555"
       }
-    },
-    {
-      "id": "488c",
-      "title": "Test",
-      "type": "Full-Time",
-      "location": "Lahore",
-      "description": "This is a test job",
-      "salary": "Under $50K",
-      "company": {
-        "name": "Test Company",
-        "description": "This is a test company",
-        "contactEmail": "jdi@jdi.com",
-        "contactPhone": "444-444-444"
-      }
     }
   ]
 }
