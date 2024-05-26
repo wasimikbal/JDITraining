@@ -24,7 +24,7 @@ const JobListings = ({ isHome }) => {
 
     setTimeout(() => {
       fetchJobs();
-    }, 3000)
+    }, 1000)
 
 
   }, [])
