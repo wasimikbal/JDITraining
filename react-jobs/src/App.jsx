@@ -14,6 +14,12 @@ import AddJobPage from './pages/AddJobPage'
 import NotFoundPage from './pages/NotFoundPage'
 import EditJobPage from './pages/EditJobPage'
 
+/**
+ * Add a new job to the database.
+ * @param {Object} newJob - The new job data to be added.
+ * @returns {Promise<void>} A Promise indicating the completion of the operation.
+ */
+
 const addJob = async(newJob) => {
   const res = await fetch('http://localhost:8000/jobs',
     {
@@ -27,6 +33,11 @@ const addJob = async(newJob) => {
   return;
 }
 
+/**
+ * Update an existing job in the database.
+ * @param {Object} updatedJob - The updated job data.
+ * @returns {Promise<void>} A Promise indicating the completion of the operation.
+ */
 const updateJob = async(updatedJob) => {
   const res = await fetch(`http://localhost:8000/jobs/${updatedJob.id}`,
     {
@@ -40,6 +51,12 @@ const updateJob = async(updatedJob) => {
   return;
 }
 
+/**
+ * Delete a job from the database.
+ * @param {number} jobId - The ID of the job to be deleted.
+ * @returns {Promise<void>} A Promise indicating the completion of the operation.
+ */
+
 const deleteJob = async(jobId) => {
   const res = await fetch(`http://localhost:8000/jobs/${jobId}`,
   {
@@ -47,6 +64,9 @@ const deleteJob = async(jobId) => {
   })
 }
 
+/**
+ * Create a router instance with all of the routes defined.
+ */
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<MainLayout />}>
     <Route path='/' element={<HomePage />} />
@@ -57,6 +77,11 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path='*' element={<NotFoundPage />} />
   </Route>
 ))
+
+/**
+ * Main function to render the application.
+ * @returns {JSX.Element} The application component wrapped with RouterProvider.
+ */
 
 const App = () => {
   return (

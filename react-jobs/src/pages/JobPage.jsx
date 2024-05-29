@@ -1,23 +1,58 @@
-import React from "react";
 import { FaArrowLeft, FaMapMarker } from "react-icons/fa";
-import { useState, useEffect } from "react";
-import { useParams, useLoaderData, Link, useNavigate } from "react-router-dom";
-import Spinner from "../components/Spinner";
+import React from "react";
+import { useLoaderData, Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+/**
+ * Functional component for rendering a job page.
+ * @param {Object} props - The component props.
+ * @param {Function} props.deleteJob - Function to delete a job.
+ * @returns {JSX.Element} JSX element representing the job page.
+ * @author Waseem Iqbal
+ */
 const JobPage = ({ deleteJob }) => {
-  const { id } = useParams();
-  const [loading, setLoading] = useState(true);
+  /**
+   * Retrieves job data using a hook from React Router.
+   * @type {Object}
+   */
   const job = useLoaderData();
+
+  /**
+   * Navigation function from React Router.
+   * @type {Function}
+   */
   const navigate = useNavigate();
+
+  /**
+   * Sets loading to false after a delay.
+   */
   setTimeout(() => setLoading(false), 1000);
 
+  /**
+   * Handler function for deleting a job.
+   * @param {number} jobId - The ID of the job to be deleted.
+   * @returns {void}
+   */
   const OnClickDelete = (jobId) => {
+    /**
+     * Displays a confirmation dialog before deleting the job.
+     */
     const confirm = window.confirm("Are you sure you want to delete this job");
     if (!confirm) return;
 
+    /**
+     * Calls the deleteJob function with the job ID.
+     */
     deleteJob(jobId);
+
+    /**
+     * Displays a success toast after successful deletion.
+     */
     toast.success("Job deleted successfully");
+
+    /**
+     * Navigates to the jobs page after deletion.
+     */
     return navigate("/jobs");
   };
 

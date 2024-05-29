@@ -3,6 +3,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+/**
+ * Functional component for rendering a job page.
+ * @param {Object} props - The component props.
+ * @param {Function} props.AddJobSubmit - Function to create a new job.
+ * @returns {JSX.Element} JSX element representing the job page.
+ * @author Waseem Iqbal
+ */
 const AddJobPage = ({ AddJobSubmit }) => {
   const [title, setTitle] = useState("");
   const [type, setType] = useState("Full-Time");
@@ -13,10 +20,21 @@ const AddJobPage = ({ AddJobSubmit }) => {
   const [companyDescription, setCompanyDescription] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
+
   const navigate = useNavigate();
 
+  /**
+   * Function for handling form submission to add a new job.
+   * @param {Event} e - The form submission event.
+   * @returns {void}
+   */
   const submitForm = (e) => {
     e.preventDefault();
+
+    /**
+     * Constructs a new job object from the data captured.
+     * @type {Object}
+     */
     const newJob = {
       title,
       type,
@@ -30,8 +48,20 @@ const AddJobPage = ({ AddJobSubmit }) => {
         contactPhone,
       },
     };
+
+    /**
+     * Calls the AddJobSubmit function with the new job data.
+     */
     AddJobSubmit(newJob);
+
+    /**
+     * Displays a success toast after successful job addition.
+     */
     toast.success("Job added successfully");
+
+    /**
+     * Navigates to the jobs page after job addition.
+     */
     return navigate("/jobs");
   };
 

@@ -1,12 +1,31 @@
 import React from "react";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useParams, useLoaderData, Link, useNavigate } from "react-router-dom";
+import { useParams, useLoaderData, useNavigate } from "react-router-dom";
 
+/**
+ * Functional component for rendering a page to edit a job.
+ * @param {Object} props - The component props.
+ * @param {Function} props.UpdateJobSubmit - Function to submit updated job data.
+ * @returns {JSX.Element} JSX element representing the edit job page.
+ * @author Waseem Iqbal
+ */
 const EditJobPage = ({ UpdateJobSubmit }) => {
+  /**
+   * Retrieves job data using a custom hook.
+   * @type {Object}
+   */
   const job = useLoaderData();
+
+  /**
+   * Retrieves the job ID from the URL params.
+   * @type {Object}
+   */
   const { id } = useParams();
 
+  /**
+   * State variables for managing job data.
+   */
   const [title, setTitle] = useState(job.title);
   const [type, setType] = useState(job.type);
   const [location, setLocation] = useState(job.location);
@@ -18,10 +37,25 @@ const EditJobPage = ({ UpdateJobSubmit }) => {
   );
   const [contactEmail, setContactEmail] = useState(job.company.contactEmail);
   const [contactPhone, setContactPhone] = useState(job.company.contactPhone);
+
+  /**
+   * Navigation function from React Router.
+   * @type {Function}
+   */
   const navigate = useNavigate();
 
+  /**
+   * Function for handling form submission to update a job.
+   * @param {Event} e - The form submission event.
+   * @returns {void}
+   */
   const submitForm = (e) => {
     e.preventDefault();
+
+    /**
+     * Constructs an updated job object with the modified data.
+     * @type {Object}
+     */
     const updatedJob = {
       id,
       title,
@@ -36,8 +70,20 @@ const EditJobPage = ({ UpdateJobSubmit }) => {
         contactPhone,
       },
     };
+
+    /**
+     * Calls the UpdateJobSubmit function with the updated job data.
+     */
     UpdateJobSubmit(updatedJob);
+
+    /**
+     * Displays a success toast after successful job update.
+     */
     toast.success("Job updated successfully");
+
+    /**
+     * Navigates back to the job details page after update.
+     */
     return navigate(`/jobs/${id}`);
   };
 
