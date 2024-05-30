@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/JobPage.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/JobPage.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { FaArrowLeft, FaMapMarker } from "react-icons/fa";
+import React from "react";
+import { useLoaderData, Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+/**
+ * Functional component for rendering a job page.
+ * @param {Object} props - The component props.
+ * @param {Function} props.deleteJob - Function to delete a job.
+ * @returns {JSX.Element} JSX element representing the job page.
+ */
+const JobPage = ({ deleteJob }) => {
+  /**
+   * Retrieves job data using a hook from React Router.
+   * @type {Object}
+   */
+  const job = useLoaderData();
+
+  /**
+   * Navigation function from React Router.
+   * @type {Function}
+   */
+  const navigate = useNavigate();
+
+  /**
+   * Sets loading to false after a delay.
+   */
+  setTimeout(() => setLoading(false), 1000);
+
+  /**
+   * Handler function for deleting a job.
+   * @param {number} jobId - The ID of the job to be deleted.
+   * @returns {void}
+   */
+  const OnClickDelete = (jobId) => {
+    /**
+     * Displays a confirmation dialog before deleting the job.
+     */
+    const confirm = window.confirm("Are you sure you want to delete this job");
+    if (!confirm) return;
+
+    /**
+     * Calls the deleteJob function with the job ID.
+     */
+    deleteJob(jobId);
+
+    /**
+     * Displays a success toast after successful deletion.
+     */
+    toast.success("Job deleted successfully");
+
+    /**
+     * Navigates to the jobs page after deletion.
+     */
+    return navigate("/jobs");
+  };
+
+  return (
+    &lt;>
+      &lt;section>
+        &lt;div className="container m-auto py-6 px-6">
+          &lt;Link
+            to="/jobs"
+            className="text-indigo-500 hover:text-indigo-600 flex items-center"
+          >
+            &lt;FaArrowLeft className="mr-2" /> Back to Job Listings
+          &lt;/Link>
+        &lt;/div>
+      &lt;/section>
+
+      &lt;section className="bg-indigo-50">
+        &lt;div className="container m-auto py-10 px-6">
+          &lt;div className="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
+            &lt;main>
+              &lt;div className="bg-white p-6 rounded-lg shadow-md text-center md:text-left">
+                &lt;div className="text-gray-500 mb-4">{job.type}&lt;/div>
+                &lt;h1 className="text-3xl font-bold mb-4">{job.title}&lt;/h1>
+                &lt;div className="text-gray-500 mb-4 flex align-middle justify-center md:justify-start">
+                  &lt;FaMapMarker className="text-orange-700 mr-1.5 mt-0.5" />
+                  &lt;p className="text-orange-700">{job.location}&lt;/p>
+                &lt;/div>
+              &lt;/div>
+
+              &lt;div className="bg-white p-6 rounded-lg shadow-md mt-6">
+                &lt;h3 className="text-indigo-800 text-lg font-bold mb-6">
+                  Job Description
+                &lt;/h3>
+
+                &lt;p className="mb-4">{job.description}&lt;/p>
+
+                &lt;h3 className="text-indigo-800 text-lg font-bold mb-2">
+                  Salary
+                &lt;/h3>
+
+                &lt;p className="mb-4">{job.salary} / Year&lt;/p>
+              &lt;/div>
+            &lt;/main>
+
+            {/* &lt;!-- Sidebar --> */}
+            &lt;aside>
+              {/* &lt;!-- Company Info --> */}
+              &lt;div className="bg-white p-6 rounded-lg shadow-md">
+                &lt;h3 className="text-xl font-bold mb-6">Company Info&lt;/h3>
+
+                &lt;h2 className="text-2xl">{job.company.name}&lt;/h2>
+
+                &lt;p className="my-2">{job.company.description}&lt;/p>
+
+                &lt;hr className="my-4" />
+
+                &lt;h3 className="text-xl">Contact Email:&lt;/h3>
+
+                &lt;p className="my-2 bg-indigo-100 p-2 font-bold">
+                  {job.company.contactEmail}
+                &lt;/p>
+
+                &lt;h3 className="text-xl">Contact Phone:&lt;/h3>
+
+                &lt;p className="my-2 bg-indigo-100 p-2 font-bold">
+                  {job.company.contactPhone}
+                &lt;/p>
+              &lt;/div>
+
+              {/* &lt;!-- Manage --> */}
+              &lt;div className="bg-white p-6 rounded-lg shadow-md mt-6">
+                &lt;h3 className="text-xl font-bold mb-6">Manage Job&lt;/h3>
+                &lt;Link
+                  to={`/edit-job/${job.id}`}
+                  className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
+                >
+                  Edit Job
+                &lt;/Link>
+                &lt;button
+                  onClick={() => OnClickDelete(job.id)}
+                  className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
+                >
+                  Delete Job
+                &lt;/button>
+              &lt;/div>
+            &lt;/aside>
+          &lt;/div>
+        &lt;/div>
+      &lt;/section>
+    &lt;/>
+  );
+};
+
+const LoadJobData = async ({ params }) => {
+  const res = await fetch(`http://localhost:8000/jobs/${params.id}`);
+  const data = await res.json();
+  return data;
+};
+
+export { JobPage as default, LoadJobData };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddJobPage">AddJobPage</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#Card">Card</a></li><li><a href="global.html#EditJobPage">EditJobPage</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomeCards">HomeCards</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#JobListing">JobListing</a></li><li><a href="global.html#JobPage">JobPage</a></li><li><a href="global.html#JobsPage">JobsPage</a></li><li><a href="global.html#Navbar">Navbar</a></li><li><a href="global.html#NotFoundPage">NotFoundPage</a></li><li><a href="global.html#Spinner">Spinner</a></li><li><a href="global.html#ViewAllJobs">ViewAllJobs</a></li><li><a href="global.html#addJob">addJob</a></li><li><a href="global.html#deleteJob">deleteJob</a></li><li><a href="global.html#fetchJobs">fetchJobs</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#updateJob">updateJob</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Wed May 29 2024 19:56:44 GMT+0500 (Pakistan Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
